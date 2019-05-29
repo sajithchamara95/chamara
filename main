@@ -1,0 +1,49 @@
+#include <Adafruit_NeoPixel.h>
+#ifdef __AVR__
+#include <avr/power.h>
+#endif
+
+#define PIN            11
+#define NUMPIXELS      50
+#define ARMS           10
+#define RINGS          5
+
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(60, PIN, NEO_GRB + NEO_KHZ800);
+
+int q = 0;
+
+int R[8] = {0,  50, 50, 50, 50, 20, 0,  50};
+int G[8] = {0,  40, 0,  50, 20, 0,  50, 20};
+int B[8] = {50,  0, 0,  50,  0, 50, 20, 0};
+int r, g, b;
+
+int d = 150;
+int t = 10;
+
+void setup() {
+  // This is for Trinket 5V 16MHz, you can remove these three lines if you are not using a Trinket
+#if defined (__AVR_ATtiny85__)
+  if (F_CPU == 16000000) clock_prescale_set(clock_div_1);
+#endif
+  // End of trinket special code
+
+  pixels.begin(); // This initializes the NeoPixel library.
+  strip.show(); // Initialize all pixels to 'off'
+  clearPixel();
+  delay(1000);
+
+
+}
+
+void loop() {
+
+  longPat1(); longPat1(); longPat1(); longPat1();
+  longPat7();
+  longPat2(3);
+  longPat3();
+  longPat4(0, 8, 3);
+  longPat5(50, 3);
+  longPat6(50); longPat6(50); longPat6(50); longPat6(50); longPat6(50);
+  rainbowCycle2(5, 4); rainbowCycle2(5, 4);
+}
